@@ -44,10 +44,33 @@ La arquitectura actual del sistema se especifica en el archivo "System_Arquitect
 🟡 Media
 🟠 Avanzadillo
 
-1. 🟢 Backend básico: Correspondiente a los bloques "Anime Downloader" y "Music Downloader". 
-2. 🟢 Ejecución de comandos CLI desde backend
+1. 🟡 Bloque Anime Downloader a través de anipy-api: Desarrollo módulos anime_search() y anime_downloader()
+2. 🟢 Bloque Music Downloader a través de yt-dlp: Desarrollo módulo music_downloader()
+3. 🟢 Exponer los bloques de Backend a través de FastAPI
 3. 🟢 Bloque Scheduler
 4. 🟡 UI en React básica (Únicamente módulos descargas)
 5. 🟠 Terminar UI React (Módulo Scheduler + extras)
 
+# Secuencia de eventos en la aplicación
+
+El flujo básico de la aplicación es el siguiente: 
+## Caso descarga de Anime
+
+1. Iniciar aplicación: Acceder IP_server:80 en un navegador
+2. Seleccionar opción Anime Downloader
+3. Buscar y seleccionar anime y rango de episodios 
+4. Descargar anime
+
+## Caso descarga de canción de YouTube
+
+1. Iniciar aplicación: Acceder IP_server:80 en un navegador
+2. Seleccionar opción Music Downloader
+3. Pegar link en la app 
+4. Descargar canción
+
+## Caso Extra: Visualización de historial 
+
+1. Iniciar aplicación: Acceder IP_server:80 en un navegador
+2. Seleccionar opción Music Downloader
+3. Se mostrarán los registros de la base de datos en la app
 
