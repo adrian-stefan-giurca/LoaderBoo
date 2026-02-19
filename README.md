@@ -25,7 +25,7 @@ Se consideran las siguientes tecnologías para el desarrollo del sistema:
 1. **Python + FastAPI** para desarrollar backend que conecte el sistema con los comandos yt-dlp y ani-cli de forma adecuada.
 2. **APScheduler** como módulo Python para implementar el módulo de *Scheduler* 
 3. **SQLite** como base de datos para mantener la persistencia del historial.
-4. **React [No defenitivo]** para desarrollar el frontend del sistema y desarrollar la UI.
+4. **Vue [No defenitivo]** para desarrollar el frontend del sistema y desarrollar la UI.
 5. **Nginx** como servidor web para poder exponer la aplicación web hacia la red local.
 5. **Docker** como entorno de contenedores sobre el cual se va a instalar el sistema.
 
