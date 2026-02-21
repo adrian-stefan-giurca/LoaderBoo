@@ -43,7 +43,7 @@ def progress_callback(percentage: float):
     Function that will be called by the downloader to update 
     progress of the Download/type conversion tasks of the 
     downloader
-    # TODO: show interactive progress on the frontend from the given percentage 
+    TODO: show interactive progress on the frontend from the given percentage 
     """
     print(f"Progress: {percentage:.1f}%", end="\r")
 
@@ -87,7 +87,7 @@ def anime_downloader(anime_name: str, anime_id: str, ep: int):
 
     # TODO: Query a la base de datos para asegurar que no se está descargando previamente
     # TODO: Query al directorio media para asegurar que no se descarga varias veces el 
-    # mismo archivo
+    # mismo archivo (opcional)
     download_path = downloader.download( 
         stream=episode_stream,
         download_path=Path(ANIME_MEDIA_DIR + anime_name + " Episode " + str(ep) + ".mp4"),
