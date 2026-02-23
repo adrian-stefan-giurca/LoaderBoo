@@ -20,22 +20,37 @@ def anime_search(anime_title: str):
     The function shall return the list of animes in a format suitable for its 
     representation in the frontend. 
     """
+    results = []
 
     # Initialize allanime provider
     anime_provider = provider.get_provider("allanime")
 
     # Search for the argument 'anime_title'
-    results = anime_provider.get_search(anime_title)
+    search_results = anime_provider.get_search(anime_title)
     # provider.get_search() devuelve una lista de objetos de la clase 'ProviderSearchResult'
     # estos cuentan con identifier, name, languages (dub o sub)
     
-    if len(results) == 0:
+    if len(search_results) == 0:
         print("[ANIME] Anime not found in your search")
         return -1
     
+    for r in search_results:
+        anime_res = anime.Anime(anime_provider, r.name, r.identifier, r.languages)
+        info_results = anime_res.get_info()
+        ep_info = anime_res.get_episodes(LanguageTypeEnum.SUB)
+        res_elem = {}
+
+        res_elem["identifier"] = r.identifier
+        res_elem["name"] = r.name
+        res_elem["year"] = info_results.release_year
+        res_elem["status"] = info_results.status    # 1 -> Upcoming; 2 -> Ongoing; 3 -> Completed
+        res_elem["image"] = info_results.image
+        res_elem["episodes"] = len(ep_info)
+
+        results.append(res_elem)
+    
     # TODO: Preparar resultados para mostrarlos en el frontend
 
-    #for res in results:
     return results
 
 def progress_callback(percentage: float): 
@@ -99,3 +114,4 @@ def anime_downloader(anime_name: str, anime_id: str, ep: int):
 
     return 0
 
+#print(anime_search("Frieren"))
