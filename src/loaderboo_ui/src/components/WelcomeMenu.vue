@@ -1,16 +1,35 @@
 <script setup>
+import AnimeSearch from './anime-components/AnimeSearch.vue';
+import { ref } from 'vue';
+
+let showAnimeSearchMenu = ref(false);
+let showWelcomeMenu = ref(!showAnimeSearchMenu.value);
+
+function toggleAnimeSearchMenu(){
+    if (showAnimeSearchMenu.value === true){
+        showAnimeSearchMenu.value = false
+    }else{
+        showAnimeSearchMenu.value = true
+    }
+    showWelcomeMenu.value = !showAnimeSearchMenu.value;
+}
+
 </script>
 
+
 <template>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <div class="menu-container">
+    <div v-show="showWelcomeMenu" class="menu-container">
         <div class="menu-text">
             <h2>Select the content you want to Download</h2>
             <p>You will be redirected to its module</p>
         </div>
         
-        <p  class="button">Anime</p>
+        <p v-on:click="toggleAnimeSearchMenu()" class="button anime-button">Anime</p>
         <p class="button">YouTube</p>
+    </div>
+
+    <div v-show="showAnimeSearchMenu" class="anime-search">
+        <AnimeSearch/>
     </div>
 </template>
 
@@ -40,4 +59,5 @@
     border-color: rgb(255, 219, 41);
     color: black;
 }
+
 </style>
