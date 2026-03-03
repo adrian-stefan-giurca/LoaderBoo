@@ -14,6 +14,7 @@ function toggleAnimeSearchMenu(){
     showWelcomeMenu.value = !showAnimeSearchMenu.value;
 }
 
+
 </script>
 
 
@@ -24,16 +25,25 @@ function toggleAnimeSearchMenu(){
             <p>You will be redirected to its module</p>
         </div>
         
-        <p v-on:click="toggleAnimeSearchMenu()" class="button anime-button">Anime</p>
+        <!-- <p v-on:click="toggleAnimeSearchMenu()" class="button anime-button">Anime</p> -->
+        <RouterLink to="/anime-search" class="button anime-button">Anime</RouterLink>
         <p class="button">YouTube</p>
     </div>
 
-    <div v-show="showAnimeSearchMenu" class="anime-search">
+    <!-- <div v-show="showAnimeSearchMenu" class="anime-search">
         <AnimeSearch/>
-    </div>
+    </div> -->
 </template>
 
 <style>
+/* .anime-search{
+    display: grid;
+    align-items: center;
+    text-align: center;
+    grid-gap: 1rem;
+    place-items: center;
+} */
+
 .menu-container{
     display: grid;
     align-items: center;

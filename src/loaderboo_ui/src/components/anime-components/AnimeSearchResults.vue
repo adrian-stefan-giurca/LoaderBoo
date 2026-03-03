@@ -1,37 +1,22 @@
 <script setup>
-const props = defineProps({
-    name: String,
-    year: Number,
-    status: Number,
-    image_url: String,
-    episodes: Number
-})
+import AnimeCover from './AnimeCover.vue';
 
-const img_alt = props.name + " image"
 
-function convertStatus(status){
-    if (status == 1){
-        return "Upcoming";
-    }else if (status == 2){
-        return "Ongoing";
-    }else if (status == 3){
-        return "Completed"
-    }else{
-        return "Unknown";
-    }
-}
 </script>
 
 <template>
-    <div>
-        <img v-bind:alt="img_alt" v-bind:src="props.image_url"/>
-        <div>
-            <p>{{ name }}</p>
-            <p>{{ year }}</p>
-            <p>{{ convertStatus(props.status) }}</p>
-            <p>Episodes: {{ episodes }}</p>
-        </div>
-        
+    <p class="result-instructions">
+        Select the anime series to download 
+    </p>
+
+    <div class="search-results-container">
+        <AnimeCover name="Sousou no Frieren" year=2023 status=3
+        image_url="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx154587-qQTzQnEJJ3oB.jpg" 
+        episodes=28 />
+
+        <AnimeCover name="Sousou no Frieren" year=2023 status=3
+        image_url="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx154587-qQTzQnEJJ3oB.jpg" 
+        episodes=28 />
     </div>
 </template>
 

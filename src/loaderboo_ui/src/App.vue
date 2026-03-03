@@ -1,7 +1,6 @@
 <script setup>
-import WelcomeMenu from './components/WelcomeMenu.vue';
-import AnimeSearch from './components/anime-components/AnimeSearch.vue';
-import AnimeSearchResults from './components/anime-components/AnimeSearchResults.vue';
+import { RouterView } from 'vue-router';
+
 </script>
 
 <template>
@@ -12,17 +11,14 @@ import AnimeSearchResults from './components/anime-components/AnimeSearchResults
     <img alt="LoaderBoo logo" class="logo_img" src="./assets/loaderboo_logo.webp" width="125" height="125" />
   </header>
 
-  <!-- <main>
-    <WelcomeMenu/>
-  </main> -->
-
-  <AnimeSearchResults name="Sousou no Frieren" year=2023 status=3
-  image_url="https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx154587-qQTzQnEJJ3oB.jpg" 
-  episodes=28 />
+  <main>
+    <RouterView />
+  </main>
 
 </template>
 
 <style scoped>
+
 
 .logo_header{
   display: flex;
