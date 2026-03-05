@@ -1,47 +1,31 @@
 <script setup>
-import axios from 'axios';
-import AnimeSearchResults from './AnimeCover.vue';
 import { ref } from 'vue';
+import { useRouter } from "vue-router"
 
-let showAnimeSearch = ref(true);
-let showResults = ref(!showAnimeSearch.value)
-async function animeSearchRequest(anime_title){
-    /**
-     * Function in charge of requesting search results to LoaderBoo API and 
-     * display them on the screen by creating AnimeSearchResults components
-     */
-    /* const url_request = "http://127.0.0.1:8000/anime/search_anime/" + anime_title;
-    try {
-        const response = await axios.get(url_request);
-        console.log(response);
-    } catch (error) {
-        console.error(error);
-    } */
+const anime_search_term = ref();
+const route = useRouter()
 
-    // hide search bar
-    showAnimeSearch.value = false;
-    showResults.value = !showAnimeSearch.value;
-
-    return 0;
+function startAnimeSearch(anime_title){
+    route.push({
+        path: `/anime-search/${anime_title}` 
+    })
 }
-
-const search_term = ref();
 
 </script>
 
 <template>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <div v-show="showAnimeSearch" class="anime-search-container">
+    <div class="anime-search-container">
         <div class="menu-text">
             <h2>Enter the title and the season you want to watch</h2>
             <p>e.g: Frieren Season 2</p>
         </div>
 
         <div class="search-box">
-            <input v-model="search_term" class="search" type="text" id="search-input" placeholder="Search...">
-            <RouterLink to="/anime-search/results" class="search-button">
+            <input v-model="anime_search_term" class="search" type="text" id="search-input" placeholder="Search...">
+            <p v-on:click="startAnimeSearch(anime_search_term)" class="search-button">
                 <i class="fa fa-search"></i>
-            </RouterLink>
+            </p>
         </div>
         
     </div>

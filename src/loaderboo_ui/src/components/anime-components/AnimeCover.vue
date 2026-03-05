@@ -1,13 +1,16 @@
 <script setup>
 const props = defineProps({
-    name: String,
-    year: Number,
-    status: Number,
-    image_url: String,
-    episodes: Number
+    anime_obj: Object
 })
 
-const img_alt = props.name + " image"
+const img_alt = props.anime_obj.name + " image"
+
+async function downloadAnime(params) {
+    /**
+     * Función que se encarga mandar la petición de descargar anime 
+     * a la API de LoaderBoo
+     */
+}
 
 function convertStatus(status){
     if (status == 1){
@@ -20,16 +23,17 @@ function convertStatus(status){
         return "Unknown";
     }
 }
+
 </script>
 
 <template>
     <div class="result-container">
-        <img class="anime-image" v-bind:alt="img_alt" v-bind:src="props.image_url"/>
+        <img class="anime-image" v-bind:alt="img_alt" v-bind:src="props.anime_obj.image"/>
         <div class="">
-            <p>{{ name }}</p>
-            <p>{{ year }}</p>
-            <p>{{ convertStatus(props.status) }}</p>
-            <p>Episodes: {{ episodes }}</p>
+            <p>{{ props.anime_obj.name }}</p>
+            <p>{{ props.anime_obj.year }}</p>
+            <p>{{ convertStatus(props.anime_obj.status) }}</p>
+            <p>Episodes: {{ props.anime_obj.episodes }}</p>
         </div>
         
     </div>
@@ -44,6 +48,8 @@ p{
 .anime-image{
     max-height: 20rem;
     border-radius: 2em; 
+    background-color: rgb(50, 50, 50);
+    color: black;
 }
 
 .result-container{
@@ -53,7 +59,7 @@ p{
     border-color: rgb(51, 51, 51);
     border-style: solid;
     border-radius: 2em; 
-    font-size: 1.25rem;
+    font-size: 1rem;
     overflow: hidden;
     padding: 1.25rem;
 }

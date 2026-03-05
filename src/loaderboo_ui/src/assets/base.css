@@ -68,7 +68,9 @@ body {
   color: var(--color-text);
   /* background: var(--color-background); */
   background-image: url("loaderboo_background.jpg");
-  background-size: cover;
+  background-color: rgb(2, 2, 2);
+  background-size: contain;
+  background-repeat: no-repeat;
   transition:
     color 0.5s,
     background-color 0.5s;
