@@ -8,12 +8,14 @@ from fastapi import APIRouter
 anime_router = APIRouter(prefix="/anime", tags=["users"]) 
 
 ANIME_MEDIA_DIR = "media/"
+GLOBAL_PROVIDER = "allanime"
+
 
 print("=== SCRIPT LoaderBoo para autodescargas ===")
 
 # Link prueba: http://127.0.0.1:8000/anime/search_anime/Frieren
 @anime_router.get("/search_anime/{anime_title}")
-def anime_search(anime_title: str):
+def search_anime(anime_title: str):
     """
     Function in charge of handling the search of anime episodes given its title
     'anime_title'. 
@@ -23,7 +25,7 @@ def anime_search(anime_title: str):
     results = []
 
     # Initialize allanime provider
-    anime_provider = provider.get_provider("allanime")
+    anime_provider = provider.get_provider(GLOBAL_PROVIDER)
 
     # Search for the argument 'anime_title'
     search_results = anime_provider.get_search(anime_title)
@@ -53,6 +55,33 @@ def anime_search(anime_title: str):
 
     return results
 
+# Link prueba: http://127.0.0.1:8000/anime/get_anime_info/ReHMC7TQnch3C6z8j
+@anime_router.get("/get_anime_info/{anime_id}")
+def get_anime_info(anime_id: str):
+    """
+    Function that will get specific information from an anime
+    by providing 'anime_id' parameter
+    """
+    anime_provider = provider.get_provider(GLOBAL_PROVIDER)
+    anime_info = anime_provider.get_info(anime_id)
+    anime_langs = {LanguageTypeEnum.SUB} # Not a problem as I always download SUB anime
+
+    anime_obj = anime.Anime(anime_provider, anime_info.name,
+                            anime_id, anime_langs)
+    
+    ep_info = anime_obj.get_episodes(LanguageTypeEnum.SUB) 
+
+    api_response = {}
+
+    api_response["name"] = anime_info.name
+    api_response["year"] = anime_info.release_year
+    api_response["status"] = anime_info.status    # 1 -> Upcoming; 2 -> Ongoing; 3 -> Completed
+    api_response["image"] = anime_info.image
+    api_response["episodes"] = len(ep_info)
+
+    return api_response
+
+
 def progress_callback(percentage: float): 
     """
     Function that will be called by the downloader to update 
@@ -78,15 +107,15 @@ def save_anime_entry_to_history():
     pass
 
 # Link prueba: http://127.0.0.1:8000/anime/download_anime/Sousou no Frieren/ReHMC7TQnch3C6z8j/1
-@anime_router.get("/download_anime/{anime_name}/{anime_id}/{ep}")
-def anime_downloader(anime_name: str, anime_id: str, ep: int):
+@anime_router.post("/download_anime/{anime_name}/{anime_id}/{ep}")
+def download_anime(anime_name: str, anime_id: str, ep: int):
     """
     TODO: Paralelizar downloaders ?¿ Ver si ocurre.
     Function in charge of handling the download of the anime 
     episode given its name, id, available languages (SUB/DUB) 
     and the episode number.
     """
-    anime_provider = provider.get_provider("allanime")
+    anime_provider = provider.get_provider(GLOBAL_PROVIDER)
 
     anime_langs = {LanguageTypeEnum.SUB} # Not a problem as I always download SUB anime
 
@@ -115,3 +144,4 @@ def anime_downloader(anime_name: str, anime_id: str, ep: int):
     return 0
 
 #print(anime_search("Frieren"))
+#print(get_anime_info("ReHMC7TQnch3C6z8j"))
