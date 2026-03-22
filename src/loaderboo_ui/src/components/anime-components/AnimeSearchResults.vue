@@ -13,7 +13,7 @@ async function animeSearchRequest(anime_title){
      * Function in charge of requesting search results to LoaderBoo API and 
      * display them on the screen by creating AnimeSearchResults components
      */
-    const url_request = "http://" + loaderboo_api_ip + ":8000/anime/search_anime/" + anime_title;
+    const url_request = "/api/anime/search_anime/" + anime_title;
     console.log(url_request)
     try {
         const response = await axios.get(url_request);

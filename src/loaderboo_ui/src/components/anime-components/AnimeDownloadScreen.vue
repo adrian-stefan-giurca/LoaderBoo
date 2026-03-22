@@ -14,7 +14,7 @@ async function downloadAnime(anime_title, anime_id, episode) {
      * request as they are needed in the backend to download 
      * the episode
      */
-    const url_request = "http://" + loaderboo_api_ip + ":8000/anime/download_anime/" + anime_title + "/" + anime_id + "/" + episode;
+    const url_request = "/api/anime/download_anime/" + anime_title + "/" + anime_id + "/" + episode;
     try {
         const response = await axios.post(url_request);
         downlaod_status.value = response
