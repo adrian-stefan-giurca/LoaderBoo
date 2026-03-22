@@ -1,12 +1,13 @@
 <script setup>
 import { RouterView } from 'vue-router';
+import { goHome } from './main'
 
 </script>
 
 <template>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <header class="logo_header">
-    <h1 class="logo">LoaderBoo</h1>
+    <h1 class="logo" v-on:click="goHome()">LoaderBoo</h1>
 
     <img alt="LoaderBoo logo" class="logo_img" src="./assets/loaderboo_logo.webp" width="125" height="125" />
   </header>
@@ -51,7 +52,7 @@ h1 {
   padding: 3px;
   -webkit-text-stroke: 1px;
   -webkit-text-stroke-color: white;
-  
+  cursor: pointer;
 }
 
 .logo_img {

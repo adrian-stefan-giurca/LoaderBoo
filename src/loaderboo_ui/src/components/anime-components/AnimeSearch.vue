@@ -1,15 +1,8 @@
 <script setup>
 import { ref } from 'vue';
-import { useRouter } from "vue-router"
+import { startAnimeSearch } from '../../main'
 
 const anime_search_term = ref();
-const route = useRouter()
-
-function startAnimeSearch(anime_title){
-    route.push({
-        path: `/anime-search/${anime_title}` 
-    })
-}
 
 </script>
 

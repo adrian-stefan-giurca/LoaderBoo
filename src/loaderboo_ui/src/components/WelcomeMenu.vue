@@ -1,32 +1,17 @@
 <script setup>
-import AnimeSearch from './anime-components/AnimeSearch.vue';
-import { ref } from 'vue';
-
-let showAnimeSearchMenu = ref(false);
-let showWelcomeMenu = ref(!showAnimeSearchMenu.value);
-
-function toggleAnimeSearchMenu(){
-    if (showAnimeSearchMenu.value === true){
-        showAnimeSearchMenu.value = false
-    }else{
-        showAnimeSearchMenu.value = true
-    }
-    showWelcomeMenu.value = !showAnimeSearchMenu.value;
-}
-
 
 </script>
 
 
 <template>
-    <div v-show="showWelcomeMenu" class="menu-container">
+    <div class="menu-container">
         <div class="menu-text">
             <h2>Select the content you want to Download</h2>
             <p>You will be redirected to its module</p>
         </div>
         
         <!-- <p v-on:click="toggleAnimeSearchMenu()" class="button anime-button">Anime</p> -->
-        <RouterLink to="/anime-search" class="button anime-button">Anime</RouterLink>
+        <RouterLink to="/anime-search" class="button">Anime</RouterLink>
         <p class="button">YouTube</p>
     </div>
 
@@ -61,6 +46,7 @@ function toggleAnimeSearchMenu(){
     border-radius: 2em;
     font-size: 1.25rem;
     width: 15rem;
+    text-align: center;
 }
 
 .button:hover{

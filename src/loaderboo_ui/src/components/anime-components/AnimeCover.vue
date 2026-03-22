@@ -1,39 +1,36 @@
 <script setup>
+import { convertStatus, confirmAnimeEpDownload } from '../../main'
+
 const props = defineProps({
     anime_obj: Object
 })
 
 const img_alt = props.anime_obj.name + " image"
 
-async function downloadAnime(params) {
-    /**
-     * Función que se encarga mandar la petición de descargar anime 
-     * a la API de LoaderBoo
-     */
-}
-
-function convertStatus(status){
+function getStatusColor(status){
     if (status == 1){
-        return "Upcoming";
+        return "blue";  // Cambiar por otro azul más claro
     }else if (status == 2){
-        return "Ongoing";
+        return "orange";
     }else if (status == 3){
-        return "Completed"
+        return "green";
     }else{
-        return "Unknown";
+        return "white";
     }
 }
 
 </script>
 
 <template>
-    <div class="result-container">
+    <div v-on:click="confirmAnimeEpDownload(props.anime_obj.identifier)" id="result" class="anime-container">
         <img class="anime-image" v-bind:alt="img_alt" v-bind:src="props.anime_obj.image"/>
-        <div class="">
+        <div>
             <p>{{ props.anime_obj.name }}</p>
             <p>{{ props.anime_obj.year }}</p>
-            <p>{{ convertStatus(props.anime_obj.status) }}</p>
-            <p>Episodes: {{ props.anime_obj.episodes }}</p>
+            <p id="status_txt" class="info_txt" :style="{ 'color': `${getStatusColor(props.anime_obj.status)}`}">
+                {{ convertStatus(props.anime_obj.status) }}
+            </p>
+            <p id="episodes_txt" class="info_txt">{{ props.anime_obj.episodes }} Episodes</p>
         </div>
         
     </div>
@@ -52,7 +49,7 @@ p{
     color: black;
 }
 
-.result-container{
+.anime-container{
     transition: all 0.2s;
     background-color: rgb(9, 9, 9);
     border: 0.2rem;
@@ -64,11 +61,19 @@ p{
     padding: 1.25rem;
 }
 
-.result-container:hover{
+#result:hover{
     cursor: pointer;
     background-color: rgb(255, 219, 41);
     border-color: rgb(255, 219, 41);
     color: black;
+}
+
+.info_txt{
+    font-size: 0.8rem;
+}
+
+#episodes_txt{
+    align-self:last baseline;
 }
 
 </style>
