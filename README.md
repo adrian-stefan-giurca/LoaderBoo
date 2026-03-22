@@ -14,8 +14,8 @@ Aplicación web que pueda ser utilizada para la descarga de episodios de anime y
 Funciones del sistema
 
 1. Programar descargas de episodios de anime que van a salir próximamente especificando dia y fecha. 
-2. Descargar el anime directamente desde la aplicación web. 
-3. Buscar y descargar canciones de youtube
+2. Buscar y descargar el anime directamente desde la aplicación web. [Funcional versión 0.1]
+3. Buscar y descargar canciones de youtube.
 
 ---
 
@@ -25,8 +25,8 @@ Se consideran las siguientes tecnologías para el desarrollo del sistema:
 1. **Python + FastAPI** para desarrollar backend que conecte el sistema con los comandos yt-dlp y ani-cli de forma adecuada.
 2. **APScheduler** como módulo Python para implementar el módulo de *Scheduler* 
 3. **SQLite** como base de datos para mantener la persistencia del historial.
-4. **Vue [No defenitivo]** para desarrollar el frontend del sistema y desarrollar la UI.
-5. **Nginx** como servidor web para poder exponer la aplicación web hacia la red local.
+4. **Vue** para desarrollar el frontend del sistema y desarrollar la UI.
+5. **Nginx** como servidor web para poder exponer la aplicación web hacia la red.
 5. **Docker** como entorno de contenedores sobre el cual se va a instalar el sistema.
 
 ---
@@ -37,40 +37,72 @@ La arquitectura actual del sistema se especifica en el archivo "System_Arquitect
 
 ---
 
-# Nivel de complejidad estimado de las tareas
+# Instalación el proyecto
 
-**Leyenda:**
-🟢 Fácil
-🟡 Media
-🟠 Avanzadillo
+## Prerequisitos en el sistema
 
-1. 🟡 Bloque Anime Downloader a través de anipy-api: Desarrollo módulos anime_search() y anime_downloader()
-2. 🟢 Bloque Music Downloader a través de yt-dlp: Desarrollo módulo music_downloader()
-3. 🟢 Exponer los bloques de Backend a través de FastAPI
-3. 🟢 Bloque Scheduler
-4. 🟡 UI en React básica (Únicamente módulos descargas)
-5. 🟠 Terminar UI React (Módulo Scheduler + extras)
+Para instalar y ejecutar LoaderBoo, en necesario tener un sistema que tenga instaladas las siguientes dependencias:
+- Manejador de paquetes de Javascript [npm](https://www.npmjs.com/)
+- [Docker](https://www.docker.com/) 
+- [Docker Compose](https://github.com/docker/compose)
 
-# Secuencia de eventos en la aplicación
+## Instrucciones
 
-El flujo básico de la aplicación es el siguiente: 
-## Caso descarga de Anime
+Los pasos para instalar el proyecto hasta el momento consisten en:
+1. Clonar este repositorio de GitHub
+2. Instalar los paquetes del frontend necesarios para buildear LoaderBoo UI
+3. Buildear una versión de producción de LoaderBoo UI
+4. Buildear el sistema mediante docker compose
+5. Ejecutar el sistema mediante docker compose
 
-1. Iniciar aplicación: Acceder IP_server:80 en un navegador
-2. Seleccionar opción Anime Downloader
-3. Buscar y seleccionar anime y rango de episodios 
-4. Descargar anime
+A continuación se proporcionan las siguientes instrucciones en linea de comandos:
 
-## Caso descarga de canción de YouTube
+```bash
+git clone https://github.com/adrian-stefan-giurca/LoaderBoo.git
+cd LoaderBoo/src/loaderboo_ui
+npm install 
+npm run build
+cd ../../
+docker compose build
+docker compose up -d    # modo detached 
+```
 
-1. Iniciar aplicación: Acceder IP_server:80 en un navegador
-2. Seleccionar opción Music Downloader
-3. Pegar link en la app 
-4. Descargar canción
+## Consideraciones 
 
-## Caso Extra: Visualización de historial 
+Dentro de docker-compose.yaml se pueden modificar los directorios de descarga tanto de anime como de música: 
 
-1. Iniciar aplicación: Acceder IP_server:80 en un navegador
-2. Seleccionar opción Music Downloader
-3. Se mostrarán los registros de la base de datos en la app
+```yaml
+services:
+  api:
+    build: 
+      context: ./src/loaderboo_api/
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src/loaderboo_api/src:/code/app
+      - ./media/:/media     # <- parte izquierda directorio en el host
+      - ./music/:/music     # <- parte derecha directorio dentro del contenedor
 
+...
+```
+
+Para ello basta con introducir la ruta que se prefiera a la izquierda de los ':'. 
+
+Por ejemplo, para modificar el directorio original ```./media``` a ```/home/user/Desktop/media```:
+
+```yaml
+services:
+  api:
+    build: 
+      context: ./src/loaderboo_api/
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src/loaderboo_api/src:/code/app
+      - /home/user/Desktop/media:/media     
+      - ./music/:/music     
+
+...
+```
