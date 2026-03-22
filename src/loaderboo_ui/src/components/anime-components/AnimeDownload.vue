@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, watch } from 'vue';
 import { useRoute } from "vue-router"
-import { convertStatus, inputAnimeSearch, startAnimeDownload } from '../../main'
+import { convertStatus, inputAnimeSearch, startAnimeDownload, loaderboo_api_ip } from '../../main'
 import axios from 'axios';
 
 
@@ -22,7 +22,7 @@ async function getAnimeInfoRequest(anime_id){
      * Function in charge of requesting search results to LoaderBoo API and 
      * display them on the screen by creating AnimeSearchResults components
      */
-    const url_request = "http://127.0.0.1:8000/anime/get_anime_info/" + anime_id;
+    const url_request = "http://" + loaderboo_api_ip + ":8000/anime/get_anime_info/" + anime_id;
     try {
         const response = await axios.get(url_request);
         console.log(response);

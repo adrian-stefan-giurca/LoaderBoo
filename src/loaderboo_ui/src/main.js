@@ -10,6 +10,11 @@ import AnimeSearchResults from './components/anime-components/AnimeSearchResults
 import AnimeDownload from './components/anime-components/AnimeDownload.vue';
 import AnimeDownloadScreen from './components/anime-components/AnimeDownloadScreen.vue';
 
+// TODO: variable that contains the IP where LoaderBoo API is running 
+// localhost -> 127.0.0.1
+// docker0 -> 172.17.0.1  
+export const loaderboo_api_ip = "172.17.0.1";
+
 export function convertStatus(status){
     if (status == 1){
         return "Upcoming";

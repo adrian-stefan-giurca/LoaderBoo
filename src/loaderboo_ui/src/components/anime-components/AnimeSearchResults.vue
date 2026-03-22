@@ -3,6 +3,7 @@ import AnimeCover from './AnimeCover.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { loaderboo_api_ip } from '../../main'
 
 const search_response = ref([]);
 const route = useRoute();
@@ -12,7 +13,8 @@ async function animeSearchRequest(anime_title){
      * Function in charge of requesting search results to LoaderBoo API and 
      * display them on the screen by creating AnimeSearchResults components
      */
-    const url_request = "http://127.0.0.1:8000/anime/search_anime/" + anime_title;
+    const url_request = "http://" + loaderboo_api_ip + ":8000/anime/search_anime/" + anime_title;
+    console.log(url_request)
     try {
         const response = await axios.get(url_request);
         console.log(response);

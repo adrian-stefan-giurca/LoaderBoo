@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from "vue-router"
-import { inputAnimeSearch } from '../../main'
+import { inputAnimeSearch, loaderboo_api_ip } from '../../main'
 import axios from 'axios';
 
 const route = useRoute();
@@ -14,7 +14,7 @@ async function downloadAnime(anime_title, anime_id, episode) {
      * request as they are needed in the backend to download 
      * the episode
      */
-    const url_request = "http://127.0.0.1:8000/anime/download_anime/" + anime_title + "/" + anime_id + "/" + episode;
+    const url_request = "http://" + loaderboo_api_ip + ":8000/anime/download_anime/" + anime_title + "/" + anime_id + "/" + episode;
     try {
         const response = await axios.post(url_request);
         downlaod_status.value = response
