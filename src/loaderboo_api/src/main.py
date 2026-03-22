@@ -8,8 +8,9 @@ app.include_router(anime_router)
 app.include_router(music_router)
 
 origins = [
-    "http://localhost:5173",
-    "http://localhost:8000"
+    "http://localhost:5173",    # dev frontend
+    "http://localhost:8000",    # prod API
+    "http://localhost",         # prod frontend
 ]
 
 app.add_middleware(

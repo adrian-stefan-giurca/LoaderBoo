@@ -9,3 +9,12 @@ services:
       - ./src/loaderboo_api/src:/code/app
       - ./media/:/media
       - ./music/:/music
+
+  web:
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./src/loaderboo_ui/dist:/usr/share/nginx/html:ro
+    depends_on:
+      - api

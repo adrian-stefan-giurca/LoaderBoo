@@ -1,7 +1,7 @@
 import './assets/main.css'
 
 import { createApp } from 'vue'
-import { createMemoryHistory, createRouter, useRouter } from 'vue-router'
+import { createMemoryHistory, createRouter } from 'vue-router'
 
 import App from './App.vue'
 import WelcomeMenu from './components/WelcomeMenu.vue';
