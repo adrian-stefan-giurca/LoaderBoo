@@ -41,7 +41,7 @@ onMounted(() => {
 
         <div id="download-complete-options" v-else>
             <p>
-                ¡Download complete!
+                Download complete!
             </p>
 
             <p class="button" v-on:click="inputAnimeSearch()">
