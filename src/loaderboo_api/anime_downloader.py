@@ -7,7 +7,7 @@ from fastapi import APIRouter
 
 anime_router = APIRouter(prefix="/anime", tags=["users"]) 
 
-ANIME_MEDIA_DIR = "media/"
+ANIME_MEDIA_DIR = "../../media/"
 GLOBAL_PROVIDER = "allanime"
 
 
@@ -115,6 +115,9 @@ def download_anime(anime_name: str, anime_id: str, ep: int):
     episode given its name, id, available languages (SUB/DUB) 
     and the episode number.
     """
+
+    print(f"[INFO] STARTING ANIME DOWNLOAD {anime_name} Episode {ep}")
+
     anime_provider = provider.get_provider(GLOBAL_PROVIDER)
 
     anime_langs = {LanguageTypeEnum.SUB} # Not a problem as I always download SUB anime
@@ -124,9 +127,8 @@ def download_anime(anime_name: str, anime_id: str, ep: int):
     episode_stream = anime_season.get_video(
         episode=ep,
         lang=LanguageTypeEnum.SUB,
-        preferred_quality="worst"
+        preferred_quality="best"
     )
-
     downloader = Downloader(progress_callback, info_callback, error_callback)
 
     # TODO: Query a la base de datos para asegurar que no se está descargando previamente
@@ -134,14 +136,12 @@ def download_anime(anime_name: str, anime_id: str, ep: int):
     # mismo archivo (opcional)
     download_path = downloader.download( 
         stream=episode_stream,
-        download_path=Path(ANIME_MEDIA_DIR + anime_name + " Episode " + str(ep) + ".mp4"),
+        download_path=Path(ANIME_MEDIA_DIR + anime_name + "/" + anime_name + " Episode " + str(ep) + ".mp4"),
         container=".mp4", 
         max_retry=3,
-        ffmpeg=False,
+        ffmpeg=True,
         #post_dl_cb=save_anime_entry_to_history
     )
 
     return 0
 
-#print(anime_search("Frieren"))
-#print(get_anime_info("ReHMC7TQnch3C6z8j"))

@@ -5,7 +5,7 @@ import yt_dlp
 
 music_router = APIRouter(prefix="/music", tags=["users"]) 
 
-ANIME_MUSIC_MEDIA_DIR = "music/"
+ANIME_MUSIC_MEDIA_DIR = "../../music/"
 
 print("=== SCRIPT LoaderBoo para autodescargas ===")
 
