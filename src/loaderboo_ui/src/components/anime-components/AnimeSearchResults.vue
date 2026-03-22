@@ -2,7 +2,7 @@
 import AnimeCover from './AnimeCover.vue';
 import axios from 'axios';
 import { ref, onMounted } from 'vue';
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router';
 
 const search_response = ref([]);
 const route = useRoute();
@@ -28,7 +28,7 @@ onMounted(() => {
     animeSearchRequest(route.params.search_term)
 })
 
-console.log(search_response.value)
+/* console.log(search_response.value) */
 
 </script>
 
@@ -51,7 +51,8 @@ console.log(search_response.value)
 
 .search-results-container{
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-rows: repeat(5, 1fr);
     row-gap: 3rem;
     column-gap: 10rem;
 }
